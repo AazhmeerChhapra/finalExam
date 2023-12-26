@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, SectionList, TextInput, TouchableOpacity, Modal
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { app } from './firebase';
 import { AntDesign } from '@expo/vector-icons';
+import FilterModal from './FilterModal';
+
 const Task = () => {
     const [data, setData] = useState([]);
     const [searchText, setSearchText] = useState('');
@@ -127,30 +129,15 @@ const Task = () => {
                 renderItem={renderItem}
                 renderSectionHeader={renderSectionHeader}
             />
-            <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <TouchableOpacity onPress={sortByName}>
-            <Text>Sort by Answer</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={sortByCount}>
-            <Text>Sort by High Count to Low Count</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={sortByPercentage}>
-            <Text>Sort by High Percentage to Low Percentage</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={sortByLowCount}>
-            <Text>Sort by Low Count to High Count</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={sortByLowPercentage}>
-            <Text>Sort by Low Percentage to High Percentage</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+ <FilterModal
+        isVisible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onSortByName={sortByName}
+        onSortByCount={sortByCount}
+        onSortByPercentage={sortByPercentage}
+        onSortByLowCount={sortByLowCount}
+        onSortByLowPercentage={sortByLowPercentage}
+      />
         </View>
     );
 };
